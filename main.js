@@ -1,8 +1,8 @@
-// Default Display At Home, agar laman selain Home tidak ditampilkan
+// Default Display At Home, (agar laman selain Home tidak ditampilkan)
 document.getElementById('card').style.display = 'none';
 document.getElementById('servis').style.display = 'none';
 
-// Remove laman Home dan menggantikannya dengan laman lain
+// Remove Home Page & Replace it With Another Page
 document.getElementById('pj').addEventListener('click', function() {
     document.getElementById('c-fluid').style.display = 'none';
     document.getElementById('servis').style.display = 'none';
