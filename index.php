@@ -1,3 +1,7 @@
+<?php
+    include 'koneksi.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,70 +68,23 @@
                           </tr>
                       </thead>
                       <tbody id="body-tabel">
-                        <tr>
-                          <th>1</th>
-                          <td>fein@gmail.com</td>
-                          <td>UI/UX Design</td>
+                      <tr>
+                          <?php
+                          include 'koneksi.php';
+                              $query = mysqli_query($connect, "SELECT * FROM project");
+                              while ($project = mysqli_fetch_array($query)) {
+                          ?>
+                          <td> <?php echo $project['no'] ?></td>
+                          <td> <?php echo $project['client'] ?></td>
+                          <td> <?php echo $project['service'] ?></td>
+                          <td> <?php echo $project['description'] ?></td>
+                          <td> <?php echo $project['date'] ?></td>
                           <td>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                              <i class="bi bi-eye"></i>
-                            </button>
+                              <a href="edit.php?id=<?php echo $project['no'];?>"><i class="bi bi-pencil-square" ></i></a>
+                              <a href="delete.php?no=<?php echo $project['no'];?>"onclick="return confirm('You sure want to delete this?')"><i class="bi bi-trash3"></i></a>
                           </td>
-                          <td>
-                            10/09/24
-                          </td>
-                          <td>
-                            <a href="" class="btn btn-sm btn-primary m-1" id="btn-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                              <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a href="" class="btn btn-sm btn-danger m-1">
-                              <i class="bi bi-trash-fill"></i>
-                            </a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>elijah@gmail.com</td>
-                          <td>Web Development</td>
-                          <td>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                              <i class="bi bi-eye"></i>
-                            </button>
-                          </td>
-                          <td>
-                            11/21/23
-                          </td>
-                          <td class="">
-                            <a href="" class="btn btn-sm btn-primary m-1">
-                              <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a href="" class="btn btn-sm btn-danger m-1">
-                              <i class="bi bi-trash-fill"></i>
-                            </a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>terrified@gmail.com</td>
-                          <td>Web Development</td>
-                          <td>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                              <i class="bi bi-eye"></i>
-                            </button>
-                          </td>
-                          <td>
-                            10/11/24
-                          </td>
-                          <td class="">
-                            <a href="" class="btn btn-sm btn-primary m-1">
-                              <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a href="" class="btn btn-sm btn-danger m-1">
-                              <i class="bi bi-trash-fill"></i>
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
+                          </tr>
+                      </tbody> <?php } ?>
                     </table>
                   </div>
                 </div>  
@@ -139,13 +96,13 @@
                   <div class="card-header">
                     <h6>Form</h6>
                   </div>
-                  <div class="card-body">
-                    <form action="">
+                  <div class="card-body"> 
+                    <form action="add.php" method="POST">
                       <label class="form-label" for="">Users Email</label>
-                      <input id="input-email" class="form-control" type="text" placeholder="user@gmail.com" required>
+                      <input id="input-email" name="client" class="form-control" type="text" placeholder="user@gmail.com" required>
                       <div class="input-group mt-3">
                         <label class="input-group-text" for="inputGroupSelect01">Service</label>
-                        <select class="form-select" id="inputGroupSelect01">
+                        <select class="form-select" id="inputGroupSelect01" name="service">
                           <option value="null">Choose...</option>
                           <option value="UI/UX Design">UI/UX Design</option>
                           <option value="Web Development">Web Developtment</option>
@@ -153,11 +110,11 @@
                         </select>
                       </div>
                       <label class="form-label" for="">Date</label>
-                      <input class="form-control" type="date" id="date">
+                      <input class="form-control" type="date" id="date" name="date">
                       <label class="form-label" for="">Description</label>
-                      <textarea class="form-control" name="" id="text-area"></textarea>
+                      <textarea class="form-control" id="text-area" name="description"></textarea>
                       <div class="text-center mt-3">
-                        <button class="btn btn-secondary" id="btn-submit">Submit</button>
+                        <button class="btn btn-secondary" id="btn-submit" type="submit" name="submit">Submit</button>
                       </div>
                     </form>
                   </div>
