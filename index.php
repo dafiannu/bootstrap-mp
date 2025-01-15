@@ -58,7 +58,7 @@
                   <div class="card-body ">
                     <table id="tabel" class="table table-responsive">
                       <thead>
-                         <tr>
+                          <tr>
                             <th scope="col">No.</th>
                             <th scope="col">Client</th>
                             <th scope="col">Service Name</th>
@@ -71,10 +71,11 @@
                       <tr>
                           <?php
                           include 'koneksi.php';
+                          $x= 1;
                               $query = mysqli_query($connect, "SELECT * FROM project");
                               while ($project = mysqli_fetch_array($query)) {
                           ?>
-                          <td> <?php echo $project['no'] ?></td>
+                          <td> <?php echo $x++ ?></td>
                           <td> <?php echo $project['client'] ?></td>
                           <td> <?php echo $project['service'] ?></td>
                           <td> <?php echo $project['description'] ?></td>
@@ -97,7 +98,7 @@
                     <h6>Form</h6>
                   </div>
                   <div class="card-body"> 
-                    <form action="add.php" method="POST">
+                    <form action="add.php" method="POST" enctype="multipart/form-data">
                       <label class="form-label" for="">Users Email</label>
                       <input id="input-email" name="client" class="form-control" type="text" placeholder="user@gmail.com" required>
                       <div class="input-group mt-3">
@@ -111,6 +112,14 @@
                       </div>
                       <label class="form-label" for="">Date</label>
                       <input class="form-control" type="date" id="date" name="date">
+                      <label for="" >Picture</label>
+                      <div>
+                      <input type="file" name="pictu" id="pictu" value="pictu" accept="image/*" onchange="preview_image(event)" required>
+                        <br>
+                        <br>
+                        <img id="output_img" width="50%">
+                        <br>
+                      </div>
                       <label class="form-label" for="">Description</label>
                       <textarea class="form-control" id="text-area" name="description"></textarea>
                       <div class="text-center mt-3">
@@ -247,6 +256,18 @@
       </div>
     </div>
 
+    <script type='text/javascript'>
+
+      function preview_image(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+          var output = document.getElementById('output_img');
+          output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+      }
+      
+    </script>
     
 
     <script src="main.js"></script>
